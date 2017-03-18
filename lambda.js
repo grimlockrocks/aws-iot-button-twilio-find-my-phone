@@ -82,6 +82,7 @@ exports.handler = (event, context, callback) => {
                 request.end();
                 console.log("Successfully sent request to Twilio: " + messageString);
             }
+            context.done();
         }
     });
 };
