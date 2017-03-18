@@ -50,8 +50,8 @@ exports.handler = (event, context, callback) => {
             if ("LONG" === event.clickType) {
                 // See: https://www.twilio.com/docs/api/rest/making-calls
                 var message = {
-                    To: "<Your_Phone_Number>", 
-                    From: "<Your_Registered_Phone_Number>",
+                    To: "+12068903708", 
+                    From: "+12065576155",
                     Url: "https://demo.twilio.com/welcome/voice/"
                 };
                 var messageString = queryString.stringify(message);
@@ -73,16 +73,16 @@ exports.handler = (event, context, callback) => {
                     });
                     res.on("end", function () {
                         console.log("Twilio response data: " + responseData);
+                        context.succeed();
                     });
                 });
                 request.on("error", (e2) => {
-                    console.error("Failed to send request to Twilio: " + e2, e2.stack);
+                    console.log("Failed to send request to Twilio: " + e2, e2.stack);
+                    context.done();
                 });
                 request.write(messageString);
                 request.end();
-                console.log("Successfully sent request to Twilio: " + messageString);
             }
-            context.done();
         }
     });
 };
